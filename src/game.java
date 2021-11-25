@@ -9,6 +9,7 @@ public class game extends JPanel implements ActionListener, KeyListener {
     protected int yPos;
 
     protected int xVel;
+    //wait no
     protected int yVel;
 
     protected int score;
