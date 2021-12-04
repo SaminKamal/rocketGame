@@ -10,6 +10,12 @@ public abstract class rocket extends game {
     }
 
      */
+
+    public rocket() {
+        rocket leftRocket = new leftSideRocket();
+        rocket rightRocket = new rightSideRocket();
+        rocket mainRocket = new mainRocket();
+    }
     public abstract void update();
     //public abstract void update(char d);
 }

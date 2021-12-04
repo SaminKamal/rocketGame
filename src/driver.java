@@ -11,7 +11,6 @@ public class driver extends JFrame {
        // pane.setBackground(Color.BLACK);
         //window.add(pane);
 
-
         window.add(linus);
         window.setPreferredSize(new Dimension(1000, 1000));
         window.pack();

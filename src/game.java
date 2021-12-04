@@ -1,14 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class game extends JPanel implements ActionListener, KeyListener {
-    protected leftSideRocket leftRocket;
-    protected rightSideRocket rightRocket;
-    protected mainRocket mainRocket;
+public class game extends JPanel implements KeyListener {
+    protected rocket leftRocket;
+    protected rocket rightRocket;
+    protected rocket mainRocket;
 
     protected final static int  THETA_INC = 2;
     protected final static int THETA_DEC = 2;
@@ -49,14 +47,14 @@ public class game extends JPanel implements ActionListener, KeyListener {
     protected int score;
 
     private int k;
-    private final int UNI_UP = 38;
-    private final int UNI_DOWN = 40;
-    private final int UNI_LEFT = 37;
-    private final int UNI_RIGHT = 39;
+    protected static final int UNI_UP = 38;
+    protected static final int UNI_DOWN = 40;
+    protected static final int UNI_LEFT = 37;
+    protected static final int UNI_RIGHT = 39;
 
 
 
-    public void keySorter(int k) {
+    public  void keySorter(int k) {
         switch(k) {
             //up--fire main engine in positive direction
             case UNI_UP:
@@ -83,19 +81,22 @@ public class game extends JPanel implements ActionListener, KeyListener {
         }
 
     }
+    public rocket rocketMain;
     public game() {
         //constructor for game -- what should it contain?
         //model rocket as object
         // rocket Rocket = new rocket();
         addKeyListener(this);
+        this.addKeyListener(this);
         setFocusable(true);
         //JPanel panel = new JPanel();
        // this.setOpaque(true);
        // this.setBackground(Color.PINK);
         // add(panel);
-        leftRocket = new leftSideRocket();
-        rightRocket = new rightSideRocket();
-        mainRocket = new mainRocket();
+       // leftRocket = new leftSideRocket();
+       // rightRocket = new rightSideRocket();
+       // mainRocket = new mainRocket();
+        //rocketMain = new rocket();
     }
 
     @Override
@@ -106,19 +107,24 @@ public class game extends JPanel implements ActionListener, KeyListener {
         g.setColor(Color.PINK);
     }
     //
+
+    /*
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
 
+     */
+
     @Override
     public void keyTyped(KeyEvent e) {
         k = e.getKeyCode();
         keySorter(k);
+        repaint();
 
         // System.out.println(k);
 
-        repaint();
+        //repaint();
 
     }
 
@@ -126,13 +132,14 @@ public class game extends JPanel implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         k = e.getKeyCode();
         keySorter(k);
-        repaint();
+        //repaint();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        //k = e.getKeyCode();
+        k = e.getKeyCode();
+        keySorter(k);
        // System.out.println(k);
-        repaint();
+        //repaint();
     }
 }
