@@ -6,14 +6,45 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class game extends JPanel implements ActionListener, KeyListener {
+    protected leftSideRocket leftRocket;
+    protected rightSideRocket rightRocket;
+    protected mainRocket mainRocket;
+
+    protected final static int  THETA_INC = 2;
+    protected final static int THETA_DEC = 2;
+
+
     protected static int xPos = 100;
     protected static int yPos = 400;
 
     protected static int xVel = 2;
     //wait no
     protected static int yVel = 2;
-    protected static int theta;
+    protected static int theta = 90;
 
+    public static void updateXPOS() {
+        xPos += xVel;
+
+    }
+    public static void updateYPOS() {
+        yPos += yVel;
+
+    }
+    public static void updateXVEL() {
+        xVel = (int) (xPos*Math.cos(theta));
+
+    }
+    public static void updateYVEL() {
+        yVel = (int) (yPos*Math.sin(theta));
+
+    }
+
+    /*
+    public static void updateTHETA() {
+        theta += THETA_INC;
+    }
+
+     */
 
     protected int score;
 
@@ -28,22 +59,25 @@ public class game extends JPanel implements ActionListener, KeyListener {
     public void keySorter(int k) {
         switch(k) {
             //up--fire main engine in positive direction
-            case 38:
+            case UNI_UP:
                 mainRocket.update();
                 repaint();
                 break;
                 //decrease theta
-            case 39:
-                rightSideRocket.update();
+            case UNI_RIGHT:
+                rightRocket.update();
                 repaint();
                 break;
             //down--fire main engine in negative direction
-            case 40:
+            case UNI_DOWN:
+                //override update in main rocket to decrement
+                //leftRocket.update();
+                repaint();
                 break;
                 //left--increase theft
-            case 37:
+            case UNI_LEFT:
                 //leftSideRocket.update();
-                leftSideRocket.update();
+                leftRocket.update();
                 repaint();
                 break;
         }
@@ -59,6 +93,9 @@ public class game extends JPanel implements ActionListener, KeyListener {
        // this.setOpaque(true);
        // this.setBackground(Color.PINK);
         // add(panel);
+        leftRocket = new leftSideRocket();
+        rightRocket = new rightSideRocket();
+        mainRocket = new mainRocket();
     }
 
     @Override
