@@ -2,23 +2,32 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class game extends JPanel implements KeyListener {
-    protected rocket leftRocket;
-    protected rocket rightRocket;
-    protected rocket mainRocket;
-
-    protected final static int  THETA_INC = 2;
-    protected final static int THETA_DEC = 2;
+    /*
+    public rocket leftRocket;
+    public rocket rightRocket;
+    public rocket mainRocket;
 
 
-    protected static int xPos = 100;
-    protected static int yPos = 400;
+     */
 
-    protected static int xVel = 2;
+
+
+    public final static int  THETA_INC = 2;
+    public final static int THETA_DEC = 2;
+
+
+    public static int xPos = 100;
+    public static int yPos = 400;
+
+    public static int xVel = 0;
     //wait no
-    protected static int yVel = 2;
-    protected static int theta = 90;
+    public static int yVel = 0;
+    public static int theta = 160;
 
     public static void updateXPOS() {
         xPos += xVel;
@@ -29,11 +38,11 @@ public class game extends JPanel implements KeyListener {
 
     }
     public static void updateXVEL() {
-        xVel = (int) (xPos*Math.cos(theta));
+        xVel = (int) Math.abs((2*Math.cos(theta)));
 
     }
     public static void updateYVEL() {
-        yVel = (int) (yPos*Math.sin(theta));
+        yVel = (int) Math.abs((2*Math.sin(theta)));
 
     }
 
@@ -54,57 +63,75 @@ public class game extends JPanel implements KeyListener {
 
 
 
-    public  void keySorter(int k) {
+    public void keySorter(int k) {
         switch(k) {
             //up--fire main engine in positive direction
             case UNI_UP:
-                mainRocket.update();
-                repaint();
+                //mainRocket.update();
+                updateXVEL();
+                updateYVEL();
+                updateXPOS();
+                updateYPOS();
+                //repaint();
                 break;
                 //decrease theta
             case UNI_RIGHT:
-                rightRocket.update();
-                repaint();
+                //rightRocket.update();
+                theta -= THETA_DEC;
+               // repaint();
                 break;
             //down--fire main engine in negative direction
             case UNI_DOWN:
                 //override update in main rocket to decrement
                 //leftRocket.update();
-                repaint();
+              //  repaint();
                 break;
                 //left--increase theft
             case UNI_LEFT:
                 //leftSideRocket.update();
-                leftRocket.update();
-                repaint();
+                theta += THETA_INC;
+                //leftRocket.update();
+               // repaint();
                 break;
         }
 
     }
-    public rocket rocketMain;
+    //public rocket rocketMain;
     public game() {
         //constructor for game -- what should it contain?
         //model rocket as object
         // rocket Rocket = new rocket();
+        //addKeyListener(this);
         addKeyListener(this);
-        this.addKeyListener(this);
         setFocusable(true);
         //JPanel panel = new JPanel();
        // this.setOpaque(true);
        // this.setBackground(Color.PINK);
-        // add(panel);
-       // leftRocket = new leftSideRocket();
-       // rightRocket = new rightSideRocket();
-       // mainRocket = new mainRocket();
+        //add(this);
+     // leftRocket = new leftSideRocket();
+      //rightRocket = new rightSideRocket();
+     // mainRocket = new mainRocket();
         //rocketMain = new rocket();
+        Timer timer = new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                repaint();
+            }
+        });
+        timer.start();
     }
 
     @Override
     public void paintComponent (Graphics g) {
-       // g.setColor(Color.BLACK);
-        this.setBackground(Color.BLACK);
-        g.fillRect(xPos, yPos, 10, 10);
-        g.setColor(Color.PINK);
+        //g.clearRect(xPos, yPos, 10, 20);
+        //JPanel pane = new JPanel();
+        //pane.setBackground(Color.WHITE);
+        //this.add(pane);
+        super.paintComponent(g);
+        //g.setBackground(Color.BLACK);
+        g.fillRect(xPos, yPos, 10, 20);
+        g.setColor(Color.BLACK);
+
     }
     //
 
@@ -120,7 +147,7 @@ public class game extends JPanel implements KeyListener {
     public void keyTyped(KeyEvent e) {
         k = e.getKeyCode();
         keySorter(k);
-        repaint();
+        //repaint();
 
         // System.out.println(k);
 
@@ -137,9 +164,9 @@ public class game extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        k = e.getKeyCode();
-        keySorter(k);
+       k = e.getKeyCode();
+       keySorter(k);
        // System.out.println(k);
-        //repaint();
+       // repaint();
     }
 }
