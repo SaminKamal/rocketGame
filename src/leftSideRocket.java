@@ -1,10 +1,12 @@
-public class leftSideRocket extends rocket  {
-    protected final static int THETA_DEC = 2;
+public class leftSideRocket extends rocket implements myInterface {
+    @Override
+    public void updateTHETA() {
+        theta += THETA_INC;
+    }
 
-    //@Override
-    public static void update() {
-        theta -= THETA_DEC;
-
+    @Override
+    public void update() {
+        updateTHETA();
        // xVel = (int) (xPos*Math.cos(theta));
       //  yVel = (int) (yPos*Math.sin(theta));
     }

@@ -1,10 +1,6 @@
-public class rocket extends game {
-    //left key will update sr1, increase theta
-    protected int sideRocketOne;
-    //right key controlled, decrease theta
-    protected int sideRocketTwo;
-    //changes acceleration--> x and y velocity , model in function?
-    protected int mainRocket;
+//public class rocket extends game {
+public abstract class rocket extends game {
+
 
     /*
     public rocket() {
@@ -14,9 +10,14 @@ public class rocket extends game {
     }
 
      */
-    public static void update() {
-        theta = theta;
+
+    public rocket() {
+        rocket leftRocket = new leftSideRocket();
+        rocket rightRocket = new rightSideRocket();
+        rocket mainRocket = new mainRocket();
     }
+    public abstract void update();
+    //public abstract void update(char d);
 }
 
 
